@@ -173,9 +173,6 @@ if video_file:
                 spoken_segment = AudioSegment.from_wav(generated_audio_path)
                 final_audio += spoken_segment
 
-        if os.path.exists(audio_path):
-            os.remove(audio_path)
-
         # Speeding up the audio to match the human like audio
         final_audio = final_audio.speedup(playback_speed = 1.21)
         
