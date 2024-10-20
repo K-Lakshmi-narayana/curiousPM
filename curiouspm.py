@@ -20,8 +20,8 @@ if os.path.exists("generated_audio.wav"):
 if os.path.exists("converted_audio.wav"):
     os.remove("converted_audio.wav")
 
-if os.path.exists("final_video.wav"):
-    os.remove("final_video.wav")
+if os.path.exists("final_video.mp4"):
+    os.remove("final_video.mp4")
 
 # Detectin silent segments in audio
 def detect_silence(audio_path):
