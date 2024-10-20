@@ -11,9 +11,6 @@ import re
 AZURE_API_KEY = "22ec84421ec24230a3638d1b51e3a7dc"
 AZURE_ENDPOINT = "https://internshala.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-08-01-preview"
 
-if os.path.exists("temp_audio.wav"):
-    os.remove("temp_audio.wav")
-
 if os.path.exists("generated_audio.wav"):
     os.remove("generated_audio.wav")
 
