@@ -174,7 +174,7 @@ if video_file:
                 final_audio += spoken_segment
 
         # Speeding up the audio to match the human like audio
-        final_audio = final_audio.speedup(playback_speed = 1.21)
+        final_audio = final_audio.speedup(playback_speed = 1.18)
         
         final_audio.export(generated_audio_path, format="wav")
         st.audio(generated_audio_path)
