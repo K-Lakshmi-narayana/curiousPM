@@ -11,6 +11,18 @@ import re
 AZURE_API_KEY = "22ec84421ec24230a3638d1b51e3a7dc"
 AZURE_ENDPOINT = "https://internshala.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-08-01-preview"
 
+if os.path.exists("temp_audio.wav"):
+    os.remove("temp_audio.wav")
+
+if os.path.exists("generated_audio.wav"):
+    os.remove("generated_audio.wav")
+
+if os.path.exists("converted_audio.wav"):
+    os.remove("converted_audio.wav")
+
+if os.path.exists("final_video.wav"):
+    os.remove("final_video.wav")
+
 # Detectin silent segments in audio
 def detect_silence(audio_path):
     audio = AudioSegment.from_wav(audio_path)
@@ -82,9 +94,6 @@ if video_file:
         for silence_start, silence_end in silences:
             transcription_with_silence += f" [silence from {silence_start}s to {silence_end}s]"
 
-        st.markdown("<h2 class='header'>Step 3: Transcription </h2>", unsafe_allow_html=True)
-        st.write(transcription)
-        st.write(transcription_with_silence)
 
         # Grammar correction with GPT-4
         def correct_transcription_azure_gpt4(transcription, transcription_with_silence):
@@ -114,8 +123,6 @@ if video_file:
                 raise ValueError("Unexpected response format: 'choices' not found.")
 
         corrected_transcription = correct_transcription_azure_gpt4(transcription, transcription_with_silence)
-        st.markdown("<h2 class='header'>Step 4: Corrected Transcription</h2>", unsafe_allow_html=True)
-        st.write(corrected_transcription)
 
         # Generating AI voice from corrected transcription using gTTS
         def generate_speech(text, output_audio_file):
@@ -140,8 +147,6 @@ if video_file:
         generated_audio_path = "generated_audio.wav"
         speech_parts = re.split(r'[\[\]]', corrected_transcription)
         speech_parts = [s for s in speech_parts if s.strip()]
-
-        st.write(speech_parts)
 
         final_audio = AudioSegment.silent(duration=0)
         count = 0
